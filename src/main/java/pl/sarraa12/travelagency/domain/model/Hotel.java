@@ -1,10 +1,18 @@
 package pl.sarraa12.travelagency.domain.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "hotels")
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Hotel extends AbstractEntity {
 
     @Column(nullable = false)
@@ -15,8 +23,6 @@ public class Hotel extends AbstractEntity {
     private String locationCountry;
     @Column(nullable = false)
     private Integer numberOfRooms;
-    @Column(nullable = false)
-    private boolean food;
     //    opinie
 //    @ManyToMany(mappedBy = "opinions")
 //    private List<Opinion> opinions = new ArrayList<>();

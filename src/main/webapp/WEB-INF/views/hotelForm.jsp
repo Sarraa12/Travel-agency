@@ -25,41 +25,25 @@
     <div class="row">
         <div class="col-1"></div>
         <div class="col-6">
-            <form:form modelAttribute="trip" method="post">
+            <form:form modelAttribute="hotel" method="post">
                 <div class="form-group">
                     <form:errors path="*"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="destinationCity">City of destination</form:label>
-                    <form:input path="destinationCity" required="true" class="form-control"/>
+                    <form:label path="name">Name</form:label>
+                    <form:input path="name" required="true" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="destinationCountry">Country of destination</form:label>
-                    <form:input path="destinationCountry" required="true" class="form-control"/>
+                    <form:label path="locationCity">City</form:label>
+                    <form:input path="locationCity" required="true" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="departureDate">Date of departure</form:label>
-                    <form:input path="departureDate" type="date" class="form-control"/>
+                    <form:label path="locationCountry">Country</form:label>
+                    <form:input path="locationCountry" required="true" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="returnDate">Date of return</form:label>
-                    <form:input path="returnDate" type="date" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <form:label path="placeLimit">Limit of places</form:label>
-                    <form:input path="placeLimit" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <form:label path="bookingDeadline">Booking deadline</form:label>
-                    <form:input path="bookingDeadline" type="date" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <form:label path="price">Price</form:label>
-                    <form:input path="price" type="number" min="0" step="0.01" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <form:label path="hotel">Hotel</form:label>
-                    <form:select path="hotel" items="${hotels}" itemValue="id" itemLabel="name"/>
+                    <form:label path="numberOfRooms">Number of rooms</form:label>
+                    <form:input path="numberOfRooms" class="form-control"/>
                 </div>
                 <button class="btn btn-primary" type="submit">Save</button>
                 <button class="btn btn-secondary" type="reset">Clear</button>

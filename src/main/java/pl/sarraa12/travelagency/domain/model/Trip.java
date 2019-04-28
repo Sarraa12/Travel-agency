@@ -35,6 +35,9 @@ public class Trip extends AbstractEntity {
     // user
     @ManyToMany(mappedBy = "trips")
     private List<User> users = new ArrayList<>();
+
+    @ManyToOne
+    private Hotel hotel;
 //    // opinie
 //    @ManyToMany(mappedBy = "opinions")
 //    private List<Opinion> opinions = new ArrayList<>();

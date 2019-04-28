@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: sara
@@ -12,5 +13,12 @@
 </head>
 <body>
 Welcome to our home page!
+<p><a href=http://localhost:8080/showAll>See all available trips</a></p>
+<p><a href=http://localhost:8080/find>Find a trip you're looking for</a></p>
+
+<sec:authorize access="hasRole('ADMIN')">
+    <p><a href=http://localhost:8080/addTrip>Click here to add a new trip </a></p>
+    <p><a href=http://localhost:8080/update/${trip.id}>Update</a></p>
+</sec:authorize>
 </body>
 </html>

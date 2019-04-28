@@ -11,5 +11,4 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
     List<Trip> findByDestinationCityAndDestinationCountryAndDepartureDateBetween(
             String destinationCity, String destinationCountry, LocalDate departureDateStart, LocalDate departureDateEnd);
 
-
 }

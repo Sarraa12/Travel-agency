@@ -31,9 +31,12 @@ public class BookingController {
         Trip trip = tripRepository.getOne(tripId);
         user.getTrips().add(trip);
         userRepository.save(user);
-//        model.addAttribute("userTrips", user.getTrips());
+
         return "redirect:/showAll";
     }
+
+
+
 
 //    model.addAttribute("size", cart.getCartItem().size());
 //

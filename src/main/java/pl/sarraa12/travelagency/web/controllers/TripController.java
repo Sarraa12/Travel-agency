@@ -8,23 +8,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.sarraa12.travelagency.domain.model.Trip;
+import pl.sarraa12.travelagency.domain.model.User;
+import pl.sarraa12.travelagency.domain.repositories.HotelRepository;
 import pl.sarraa12.travelagency.domain.repositories.TripRepository;
+import pl.sarraa12.travelagency.domain.repositories.UserRepository;
 import pl.sarraa12.travelagency.dto.TripFormDTO;
 import pl.sarraa12.travelagency.dto.SearchTripDTO;
-import pl.sarraa12.travelagency.services.TripService;
 import pl.sarraa12.travelagency.services.converters.ConverterFactory;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class TripController {
 
-    private TripService tripService;
     private TripRepository tripRepository;
+    private UserRepository userRepository;
+    private HotelRepository hotelRepository;
 
-    public TripController(TripService tripService, TripRepository tripRepository) {
-        this.tripService = tripService;
+    public TripController(TripRepository tripRepository, UserRepository userRepository, HotelRepository hotelRepository) {
+
         this.tripRepository = tripRepository;
+        this.userRepository = userRepository;
+        this.hotelRepository = hotelRepository;
     }
 
     // find trip
@@ -46,8 +52,10 @@ public class TripController {
 
     // all trips
     @GetMapping("/showAll")
-    public String showList(Model model) {
+    public String showList(Model model, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("tripsList", tripRepository.findAll());
+        model.addAttribute("userTrips", user.getTrips());
         return "showAllTrips";
     }
 
@@ -74,6 +82,7 @@ public class TripController {
     @GetMapping("/addTrip")
     public String saveArticle(Model model) {
         model.addAttribute("trip", new TripFormDTO());
+        model.addAttribute("hotels", hotelRepository.findAll());
         return "tripForm";
 
     }

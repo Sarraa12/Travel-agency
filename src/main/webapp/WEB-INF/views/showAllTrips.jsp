@@ -28,6 +28,7 @@ The list of all trips
             <th>Date of departure</th>
             <th>Date of return</th>
             <th>Price</th>
+            <th>Hotel</th>
             <th>Action</th>
         </tr>
         <c:forEach items="${tripsList}" var="trip">
@@ -38,6 +39,7 @@ The list of all trips
                 <th>${trip.departureDate}</th>
                 <th>${trip.returnDate}</th>
                 <th>${trip.price}</th>
+                <th>${trip.hotel}</th>
                 <th>
                     <sec:authorize access="hasRole('ADMIN')">
                         <p><a href=http://localhost:8080/delete/${trip.id}>Delete</a></p>
@@ -55,18 +57,3 @@ The list of all trips
 
 </body>
 </html>
-
-<%--@Column(nullable = false)--%>
-<%--private String destinationCity;--%>
-<%--@Column(nullable = false)--%>
-<%--private String destinationCountry;--%>
-<%--@Column(nullable = false)--%>
-<%--private LocalDateTime departureDate;--%>
-<%--@Column(nullable = false)--%>
-<%--private LocalDateTime returnDate;--%>
-<%--@Column(nullable = false)--%>
-<%--private Integer placeLimit;--%>
-<%--@Column(nullable = false)--%>
-<%--private LocalDateTime bookingDeadline;--%>
-<%--@Column(nullable = false)--%>
-<%--private BigDecimal price;--%>
