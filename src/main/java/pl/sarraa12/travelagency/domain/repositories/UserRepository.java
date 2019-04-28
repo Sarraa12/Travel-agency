@@ -8,4 +8,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT CASE WHEN count(u) = 0 THEN true ELSE false END FROM User u WHERE u.username = ?1")
     boolean isUsernameFree(String username);
+
+    User findByUsername(String username);
 }

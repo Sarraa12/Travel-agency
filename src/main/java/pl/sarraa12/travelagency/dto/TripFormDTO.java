@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddTripDTO {
+public class TripFormDTO {
 
     private Long id;
     private String destinationCity;

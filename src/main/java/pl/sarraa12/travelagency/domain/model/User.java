@@ -17,8 +17,8 @@ public class User extends AbstractEntity {
     private String firstName;
     @Column(name= "last_name")
     private String lastName;
-//    @ManyToMany(mappedBy = "trips")
-//    private List<Trip> trips = new ArrayList<>();
+    @ManyToMany
+    private List<Trip> trips = new ArrayList<>();
 
     public User() {
     }
@@ -88,4 +88,11 @@ public class User extends AbstractEntity {
     }
 
 
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
 }

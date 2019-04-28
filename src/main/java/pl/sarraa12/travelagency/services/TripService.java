@@ -1,12 +1,5 @@
 package pl.sarraa12.travelagency.services;
 
-import org.springframework.data.jpa.repository.Query;
-import pl.sarraa12.travelagency.domain.model.Trip;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 public interface TripService {
 
 

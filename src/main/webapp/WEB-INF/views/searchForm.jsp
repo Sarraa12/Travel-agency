@@ -38,12 +38,12 @@
                     <form:input path="destinationCountry" required="true" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="departureDate">Date of departure</form:label>
-                    <form:input path="departureDate" class="form-control"/>
+                    <form:label path="departureDateStart">From</form:label>
+                    <form:input path="departureDateStart" type="date" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="returnDate">Date of return</form:label>
-                    <form:input path="returnDate" class="form-control"/>
+                    <form:label path="departureDateEnd">To</form:label>
+                    <form:input path="departureDateEnd" type="date" class="form-control"/>
                 </div>
                 <button class="btn btn-primary" type="submit">Search</button>
                 <button class="btn btn-secondary" type="reset">Clear</button>

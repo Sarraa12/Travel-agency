@@ -5,15 +5,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sarraa12.travelagency.domain.model.Trip;
 import pl.sarraa12.travelagency.domain.repositories.TripRepository;
-import pl.sarraa12.travelagency.dto.TripDTO;
+import pl.sarraa12.travelagency.dto.TripFormDTO;
+import pl.sarraa12.travelagency.dto.SearchTripDTO;
 import pl.sarraa12.travelagency.services.TripService;
+import pl.sarraa12.travelagency.services.converters.ConverterFactory;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class TripController {
@@ -25,80 +26,91 @@ public class TripController {
         this.tripService = tripService;
         this.tripRepository = tripRepository;
     }
+
     // find trip
     @GetMapping("/find")
     public String prepareSearchPage(Model model) {
-        model.addAttribute("searchForm", new TripDTO());
+        model.addAttribute("searchForm", new SearchTripDTO());
         return "searchForm";
     }
 
-    private List<Trip> showSelectedTrips(@ModelAttribute("destinationCity") String destinationCity,
-                                         @ModelAttribute("destinationCountry") String destinationCountry) {
-        return tripRepository.findByDestinationCityAndDestinationCountry(destinationCity, destinationCountry);
-    }
-
     @PostMapping("/find")
-    public String search(@Valid @ModelAttribute("searchForm") TripDTO tripDTO, BindingResult result, Model model,
-                         @ModelAttribute("destinationCity") String destinationCity,
-                         @ModelAttribute("destinationCountry") String destinationCountry) {
+    public String search(@Valid @ModelAttribute("searchForm") SearchTripDTO tripDTO, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "searchForm";
         }
-        model.addAttribute("tripsList", showSelectedTrips(destinationCity, destinationCountry));
+        model.addAttribute("tripsList", tripRepository.findByDestinationCityAndDestinationCountryAndDepartureDateBetween(
+                tripDTO.getDestinationCity(), tripDTO.getDestinationCountry(), tripDTO.getDepartureDateStart(), tripDTO.getDepartureDateEnd()));
         return "showAllTrips";
     }
-
 
     // all trips
-    private List<Trip> showTripList() {
-        return tripRepository.findAll();
-    }
-
     @GetMapping("/showAll")
     public String showList(Model model) {
-        model.addAttribute("tripsList", showTripList());
+        model.addAttribute("tripsList", tripRepository.findAll());
         return "showAllTrips";
     }
+
+
     //add trip
     @PostMapping("/addTrip")
-    public String saveArticle(@ModelAttribute Trip trip, BindingResult result) {
+    public String saveTrip(@Valid @ModelAttribute("trip") TripFormDTO tripFormDTO, BindingResult result) {
         if (result.hasErrors()) {
             return "tripForm";
         }
-        tripRepository.save(trip);
+        if (tripFormDTO.getDepartureDate().isAfter(tripFormDTO.getReturnDate())) {
+            result.rejectValue("departureDate", null, "Date of departure must be before date of return");
+            return "tripForm";
+        }
+        if (tripFormDTO.getBookingDeadline().isAfter(tripFormDTO.getDepartureDate())) {
+            result.rejectValue("bookingDeadline", null, "Booking deadline must be before date of departure");
+            return "tripForm";
+        }
+        tripRepository.save(ConverterFactory.convertTrip(tripFormDTO));
 
-        return "home";
+        return "redirect:/showAll";
     }
 
     @GetMapping("/addTrip")
     public String saveArticle(Model model) {
-        model.addAttribute("trip", new Trip());
+        model.addAttribute("trip", new TripFormDTO());
         return "tripForm";
 
     }
-//    @GetMapping("/{id}/edit")
-//    public String editUser(Model model, @PathVariable long id) {
-//
-//        model.addAttribute("user", mainService.getUserById(id));
-//
-//        return "users/add";
-//    }
-//
-//    @PostMapping("/{id}/edit")
-//    @ResponseBody
-//    public String processEditUser(@ModelAttribute User user) {
-//        mainService.saveUser(user);
-//        return "Użytkownik został wyedytowany";
-//    }
-//
-//    @GetMapping("/{id}/delete")
-//    @ResponseBody
-//    public String deleteUser(@PathVariable long id) {
-//        mainService.deleteUser(id);
-//        return "Użytkownik został usunięty";
-//    }
 
+    //delete trip
+    @GetMapping("/delete/{id}")
+    public String deleteTrip(@PathVariable Long id) {
+        tripRepository.deleteById(id);
+        return "redirect:/showAll";
+
+    }
+
+    //update trip
+    @PostMapping("/update/{id}")
+    public String updateTrip(@Valid @ModelAttribute("trip") TripFormDTO tripFormDTO, BindingResult result, @PathVariable Long id) {
+        if (result.hasErrors()) {
+            return "tripForm";
+        }
+        if (tripFormDTO.getDepartureDate().isAfter(tripFormDTO.getReturnDate())) {
+            result.rejectValue("departureDate", null, "Date of departure must be before date of return");
+            return "tripForm";
+        }
+        if (tripFormDTO.getBookingDeadline().isAfter(tripFormDTO.getDepartureDate())) {
+            result.rejectValue("bookingDeadline", null, "Booking deadline must be before date of departure");
+            return "tripForm";
+        }
+        Trip trip = ConverterFactory.convertTrip(tripFormDTO);
+        trip.setId(id);
+        tripRepository.save(trip);
+
+        return "redirect:/showAll";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateTrip(@PathVariable Long id, Model model) {
+        model.addAttribute("trip", ConverterFactory.convertTripForm(tripRepository.getOne(id)));
+        return "tripForm";
+
+    }
 }
-//    public List<Author> myFindByEmailStartsWith(@RequestParam("letters") String letters){
-//        return authorRepository.myFindByEmailStartsWith(letters);
-//    }

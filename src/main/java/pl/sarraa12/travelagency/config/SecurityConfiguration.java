@@ -29,10 +29,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
+        auth.inMemoryAuthentication()
 //                .withUser("user").password("pass").roles("USER")
 //                .and()
-//                .withUser("admin").password("secretpassword").roles("USER","ADMIN");
+                .withUser("admin").password(passwordEncoder().encode("pass")).roles("ADMIN");
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/hello.jsp").authenticated()
-                .antMatchers("/admin","/admin/**").hasRole("ADMIN")
+                .antMatchers("/update/**","/delete/**").hasRole("ADMIN")
                 .antMatchers("/register").anonymous()
 //                .antMatchers("/register").permitAll()
                 .anyRequest().authenticated()

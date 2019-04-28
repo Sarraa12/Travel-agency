@@ -24,7 +24,7 @@ INSERT INTO `trips`(`id`, `booking_deadline`,
 VALUES (9, '2019-09-11', '2019-09-12','Dresden', 'Germany', 100, 650, '2019-06-15', '2019-05-19', '2019-05-19');
 INSERT INTO `trips`(`id`, `booking_deadline`,
                     `departure_date`,`destination_city`, `destination_country`, `place_limit`, `price`, `return_date`,`created`, `updated`)
-VALUES (10, '2019-06-31', '2019-07-01','Charlotte', 'USA', 60, 5000, '2019-07-14', '2019-05-19', '2019-05-19');
+VALUES (10, '2019-06-30', '2019-07-01','Charlotte', 'USA', 60, 5000, '2019-07-14', '2019-05-19', '2019-05-19');
 INSERT INTO `trips`(`id`, `booking_deadline`,
                     `departure_date`,`destination_city`, `destination_country`, `place_limit`, `price`, `return_date`,`created`, `updated`)
 VALUES (11, '2019-07-21', '2019-07-22','Huston', 'USA', 15, 6000, '2019-07-31', '2019-05-19', '2019-05-19');

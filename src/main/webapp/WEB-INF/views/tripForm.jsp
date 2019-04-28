@@ -19,7 +19,7 @@
 <div class="container">
     <div class="row" style="margin-top: 40px">
         <div class="col-1"></div>
-        <div class="col-10" style="padding-bottom: 20px"><h2>Add a trip</h2></div>
+        <div class="col-10" style="padding-bottom: 20px"><h2>Add or update a trip</h2></div>
         <div class="col-1"></div>
     </div>
     <div class="row">
@@ -29,6 +29,10 @@
                 <div class="form-group">
                     <form:errors path="*"/>
                 </div>
+                <%--<div class="form-group">--%>
+                    <%--<form:label path="id">Id</form:label>--%>
+                    <%--<form:input path="id" required="true" class="form-control"/>--%>
+                <%--</div>--%>
                 <div class="form-group">
                     <form:label path="destinationCity">City of destination</form:label>
                     <form:input path="destinationCity" required="true" class="form-control"/>
@@ -39,11 +43,11 @@
                 </div>
                 <div class="form-group">
                     <form:label path="departureDate">Date of departure</form:label>
-                    <form:input path="departureDate" class="form-control"/>
+                    <form:input path="departureDate" type="date" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <form:label path="returnDate">Date of return</form:label>
-                    <form:input path="returnDate" class="form-control"/>
+                    <form:input path="returnDate" type="date" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <form:label path="placeLimit">Limit of places</form:label>
@@ -51,13 +55,13 @@
                 </div>
                 <div class="form-group">
                     <form:label path="bookingDeadline">Booking deadline</form:label>
-                    <form:input path="bookingDeadline" class="form-control"/>
+                    <form:input path="bookingDeadline" type="date" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <form:label path="price">Price</form:label>
-                    <form:input path="price" class="form-control"/>
+                    <form:input path="price" type="number" min="0" step="0.01" class="form-control"/>
                 </div>
-                <button class="btn btn-primary" type="submit">Add</button>
+                <button class="btn btn-primary" type="submit">Save</button>
                 <button class="btn btn-secondary" type="reset">Clear</button>
             </form:form>
         </div>
