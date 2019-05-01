@@ -36,6 +36,7 @@ public class TripFormDTO {
     private LocalDate bookingDeadline;
     @NotNull
     private BigDecimal price;
-    private Hotel hotel;
+    @NotNull
+    private Long hotelId;
 
 }

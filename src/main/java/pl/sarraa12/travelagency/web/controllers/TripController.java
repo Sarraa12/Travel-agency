@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.sarraa12.travelagency.domain.model.Hotel;
 import pl.sarraa12.travelagency.domain.model.Trip;
 import pl.sarraa12.travelagency.domain.model.User;
 import pl.sarraa12.travelagency.domain.repositories.HotelRepository;
@@ -55,10 +56,11 @@ public class TripController {
     public String showList(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("tripsList", tripRepository.findAll());
+        if(user!=null){
         model.addAttribute("userTrips", user.getTrips());
+        }
         return "showAllTrips";
     }
-
 
     //add trip
     @PostMapping("/addTrip")
@@ -74,7 +76,10 @@ public class TripController {
             result.rejectValue("bookingDeadline", null, "Booking deadline must be before date of departure");
             return "tripForm";
         }
-        tripRepository.save(ConverterFactory.convertTrip(tripFormDTO));
+        Trip tripToAdd = ConverterFactory.convertTrip(tripFormDTO);
+        Hotel hotel = hotelRepository.getOne(tripFormDTO.getHotelId());
+        tripToAdd.setHotel(hotel);
+        tripRepository.save(tripToAdd);
 
         return "redirect:/showAll";
     }
@@ -111,6 +116,8 @@ public class TripController {
         }
         Trip trip = ConverterFactory.convertTrip(tripFormDTO);
         trip.setId(id);
+        Hotel hotel = hotelRepository.getOne(tripFormDTO.getHotelId());
+        trip.setHotel(hotel);
         tripRepository.save(trip);
 
         return "redirect:/showAll";

@@ -58,8 +58,8 @@
                     <form:input path="price" type="number" min="0" step="0.01" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="hotel">Hotel</form:label>
-                    <form:select path="hotel" items="${hotels}" itemValue="id" itemLabel="name"/>
+                    <form:label path="hotelId">Hotel</form:label>
+                    <form:select path="hotelId" items="${hotels}" itemValue="id" itemLabel="name"/>
                 </div>
                 <button class="btn btn-primary" type="submit">Save</button>
                 <button class="btn btn-secondary" type="reset">Clear</button>

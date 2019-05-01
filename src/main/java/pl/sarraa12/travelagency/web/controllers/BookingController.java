@@ -31,19 +31,8 @@ public class BookingController {
         Trip trip = tripRepository.getOne(tripId);
         user.getTrips().add(trip);
         userRepository.save(user);
-
+        trip.setPlaceLimit(trip.getPlaceLimit()-1);
+        tripRepository.save(trip);
         return "redirect:/showAll";
     }
-
-
-
-
-//    model.addAttribute("size", cart.getCartItem().size());
-//
-//    @PostMapping("/{tripId}")
-//    public String bookTrip(Model model) {
-//        String username = principal.getName();
-//        User user = userRepository.findByUsername(username);
-//
-//    }
 }

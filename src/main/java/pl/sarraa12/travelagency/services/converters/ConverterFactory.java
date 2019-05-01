@@ -1,9 +1,11 @@
 package pl.sarraa12.travelagency.services.converters;
 
 import pl.sarraa12.travelagency.domain.model.Hotel;
+import pl.sarraa12.travelagency.domain.model.Opinion;
 import pl.sarraa12.travelagency.domain.model.Trip;
 import pl.sarraa12.travelagency.domain.model.User;
 import pl.sarraa12.travelagency.dto.HotelFormDTO;
+import pl.sarraa12.travelagency.dto.OpinionFormDTO;
 import pl.sarraa12.travelagency.dto.TripFormDTO;
 import pl.sarraa12.travelagency.dto.RegistrationFormDTO;
 
@@ -37,6 +39,7 @@ public class ConverterFactory {
         formDTO.setPlaceLimit(trip.getPlaceLimit());
         formDTO.setPrice(trip.getPrice());
         formDTO.setReturnDate(trip.getReturnDate());
+        formDTO.setHotelId(trip.getHotel().getId());
         return formDTO;
     }
 
@@ -56,5 +59,12 @@ public class ConverterFactory {
         hotelFormDTO.setLocationCountry(hotel.getLocationCountry());
         hotelFormDTO.setNumberOfRooms(hotel.getNumberOfRooms());
         return hotelFormDTO;
+    }
+
+    public static Opinion convertOpinion(OpinionFormDTO opinionFormDTO) {
+      Opinion opinion = new Opinion();
+      opinion.setTripOpinion(opinionFormDTO.getTripOpinion());
+      opinion.setOpinionDescription(opinionFormDTO.getOpinionDescription());
+      return opinion;
     }
 }

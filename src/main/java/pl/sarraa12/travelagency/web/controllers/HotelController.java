@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.sarraa12.travelagency.domain.model.Hotel;
 import pl.sarraa12.travelagency.domain.repositories.HotelRepository;
 import pl.sarraa12.travelagency.dto.HotelFormDTO;
-import pl.sarraa12.travelagency.dto.TripFormDTO;
 import pl.sarraa12.travelagency.services.converters.ConverterFactory;
 
 import javax.validation.Valid;
@@ -44,7 +43,6 @@ public class HotelController {
     public String saveHotel(Model model) {
         model.addAttribute("hotel", new HotelFormDTO());
         return "hotelForm";
-
     }
 
     //delete hotel

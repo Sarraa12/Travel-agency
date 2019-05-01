@@ -1,7 +1,6 @@
 package pl.sarraa12.travelagency.domain.model;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -35,27 +34,11 @@ public class Trip extends AbstractEntity {
     // user
     @ManyToMany(mappedBy = "trips")
     private List<User> users = new ArrayList<>();
-
+    //hotel
     @ManyToOne
     private Hotel hotel;
-//    // opinie
-//    @ManyToMany(mappedBy = "opinions")
-//    private List<Opinion> opinions = new ArrayList<>();
-//    //    hotel
-//    @ManyToMany(mappedBy = "opinions")
-//    private List<Hotel> hotels = new ArrayList<>();
-
-
+    // tripOpinion
+    @OneToMany(mappedBy = "trip")
+    private List<Opinion> opinions = new ArrayList<>();
 
 }
-
-//- skąd
-//        - dokąd
-//        - zakres ceny
-//        - data wyjazdu
-//        - liczba osób
-//        - wyżywienie
-//        - hotel (powinien miec liczbe miejsc i ja zmniejszac)
-//        - limit miejsc
-//        - data do kiedy można rezerwować wycieczkę
-//        - opinie

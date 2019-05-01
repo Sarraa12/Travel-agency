@@ -19,31 +19,23 @@
 <div class="container">
     <div class="row" style="margin-top: 40px">
         <div class="col-1"></div>
-        <div class="col-10" style="padding-bottom: 20px"><h2>Add or update a hotel</h2></div>
+        <div class="col-10" style="padding-bottom: 20px"><h2>Add or update a trip</h2></div>
         <div class="col-1"></div>
     </div>
     <div class="row">
         <div class="col-1"></div>
         <div class="col-6">
-            <form:form modelAttribute="hotel" method="post">
+            <form:form modelAttribute="opinion" method="post">
                 <div class="form-group">
                     <form:errors path="*"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="name">Name</form:label>
-                    <form:input path="name" required="true" class="form-control"/>
+                    <form:label path="tripOpinion">Opinion 1-5</form:label>
+                    <form:input path="tripOpinion" type="number" min="1" max="5" step="1" required="true" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="locationCity">City</form:label>
-                    <form:input path="locationCity" required="true" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <form:label path="locationCountry">Country</form:label>
-                    <form:input path="locationCountry" required="true" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <form:label path="numberOfRooms">Number of rooms</form:label>
-                    <form:input path="numberOfRooms" class="form-control"/>
+                    <form:label path="opinionDescription">Write a short description</form:label>
+                    <form:input path="opinionDescription" required="true" class="form-control"/>
                 </div>
                 <button class="btn btn-primary" type="submit">Save</button>
                 <button class="btn btn-secondary" type="reset">Clear</button>
