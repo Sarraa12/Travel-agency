@@ -14,7 +14,7 @@ import pl.sarraa12.travelagency.services.converters.ConverterFactory;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/book")
+@RequestMapping("/booking")
 public class BookingController {
 
     private UserRepository userRepository;
@@ -33,6 +33,6 @@ public class BookingController {
         userRepository.save(user);
         trip.setPlaceLimit(trip.getPlaceLimit()-1);
         tripRepository.save(trip);
-        return "redirect:/showAll";
+        return "redirect:/trips/showAll";
     }
 }

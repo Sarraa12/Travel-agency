@@ -42,7 +42,7 @@ public class RegistrationController {
             return "registration";
         }
         userService.registerUser(registrationForm);
-        return "redirect:/hello.jsp";
+        return "redirect:/";
 
     }
 

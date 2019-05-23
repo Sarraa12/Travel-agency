@@ -17,6 +17,4 @@ public class OpinionFormDTO {
     private Integer tripOpinion;
     @NotBlank
     private String opinionDescription;
-//    @NotNull
-//    private Long tripId;
 }

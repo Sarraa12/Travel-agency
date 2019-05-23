@@ -12,7 +12,7 @@ import pl.sarraa12.travelagency.services.converters.ConverterFactory;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/hotel")
+@RequestMapping("/hotels")
 public class HotelController {
 
     private HotelRepository hotelRepository;
@@ -36,7 +36,7 @@ public class HotelController {
         }
         hotelRepository.save(ConverterFactory.convertHotel(hotelFormDTO));
 
-        return "redirect:/hotel/showAll";
+        return "redirect:/hotels/showAll";
     }
 
     @GetMapping("/add")
@@ -49,7 +49,7 @@ public class HotelController {
     @GetMapping("/delete/{id}")
     public String deleteHotel(@PathVariable Long id) {
         hotelRepository.deleteById(id);
-        return "redirect:/hotel/showAll";
+        return "redirect:/hotels/showAll";
     }
     //update hotel
     @PostMapping("/update/{id}")
@@ -61,7 +61,7 @@ public class HotelController {
         hotel.setId(id);
         hotelRepository.save(hotel);
 
-        return "redirect:/hotel/showAll";
+        return "redirect:/hotels/showAll";
     }
 
     @GetMapping("/update/{id}")

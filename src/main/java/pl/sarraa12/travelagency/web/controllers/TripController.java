@@ -3,10 +3,7 @@ package pl.sarraa12.travelagency.web.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.sarraa12.travelagency.domain.model.Hotel;
 import pl.sarraa12.travelagency.domain.model.Trip;
 import pl.sarraa12.travelagency.domain.model.User;
@@ -21,6 +18,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
+@RequestMapping("/trips")
 public class TripController {
 
     private TripRepository tripRepository;
@@ -63,7 +61,7 @@ public class TripController {
     }
 
     //add trip
-    @PostMapping("/addTrip")
+    @PostMapping("/add")
     public String saveTrip(@Valid @ModelAttribute("trip") TripFormDTO tripFormDTO, BindingResult result) {
         if (result.hasErrors()) {
             return "tripForm";
@@ -81,10 +79,10 @@ public class TripController {
         tripToAdd.setHotel(hotel);
         tripRepository.save(tripToAdd);
 
-        return "redirect:/showAll";
+        return "redirect:/trips/showAll";
     }
 
-    @GetMapping("/addTrip")
+    @GetMapping("/add")
     public String saveArticle(Model model) {
         model.addAttribute("trip", new TripFormDTO());
         model.addAttribute("hotels", hotelRepository.findAll());
@@ -96,7 +94,7 @@ public class TripController {
     @GetMapping("/delete/{id}")
     public String deleteTrip(@PathVariable Long id) {
         tripRepository.deleteById(id);
-        return "redirect:/showAll";
+        return "redirect:/trips/showAll";
 
     }
 
@@ -120,13 +118,13 @@ public class TripController {
         trip.setHotel(hotel);
         tripRepository.save(trip);
 
-        return "redirect:/showAll";
+        return "redirect:/trips/showAll";
     }
 
     @GetMapping("/update/{id}")
     public String updateTrip(@PathVariable Long id, Model model) {
-        model.addAttribute("trip", ConverterFactory.convertTripForm(tripRepository.getOne(id)));
+        model.addAttribute("trip", ConverterFactory.convertTripForm(tripRepository.findById(id).get()));
+        model.addAttribute("hotels", hotelRepository.findAll());
         return "tripForm";
-
     }
 }
